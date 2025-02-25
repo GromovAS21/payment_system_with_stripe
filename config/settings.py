@@ -92,5 +92,3 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
