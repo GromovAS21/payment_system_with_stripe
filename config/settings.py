@@ -10,7 +10,7 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG", False) == "True"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -90,5 +90,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = (BASE_DIR / "static",)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

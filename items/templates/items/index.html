@@ -1,32 +1,43 @@
-<html>
-<head>
-    <title>Купить {{ item.name }}</title>
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
-<body>
- <h1>{{ item.name }}</h1>
- <p>{{ item.description }}</p>
- <p>{{ item.price }}</p>
- <button id="buy-button">Buy</button>
-    <script type="text/javascript">
-        var stripe = Stripe("{{ publishable_stripe_key }}");
-        var buyButton = document.getElementById('buy-button');
-        buyButton.addEventListener('click', function () {
-            fetch('/buy/{{ item.pk }}/', {
-                method: 'GET',
-            })
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (session) {
-                    return stripe.redirectToCheckout({sessionId: session.session_id});
-                })
-                .then(function (result) {
-                    if (result.error) {
-                        alert(result.error.message);
-                    }
-                });
-        });
-    </script>
-</body>
-</html>
+{% extends 'items/base.html' %}
+{% block content %}
+<main>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col mx-auto">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ item.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ item.price }} руб.</h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li>{{ item.description }}
+                        <li>
+                    </ul>
+                    <button id="buy-button" class="btn btn-success">Купить</button>
+                    <script type="text/javascript">
+                        var stripe = Stripe("{{ publishable_stripe_key }}");
+                        var buyButton = document.getElementById('buy-button');
+                        buyButton.addEventListener('click', function () {
+                            fetch('/buy/{{ item.pk }}/', {
+                                method: 'GET',
+                            })
+                                .then(function (response) {
+                                    return response.json();
+                                })
+                                .then(function (session) {
+                                    return stripe.redirectToCheckout({sessionId: session.session_id});
+                                })
+                                .then(function (result) {
+                                    if (result.error) {
+                                        alert(result.error.message);
+                                    }
+                                });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
