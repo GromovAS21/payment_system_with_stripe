@@ -165,3 +165,7 @@ cython_debug/
 
 # Игнорировать dump.rdb в папке redis/
 dump.rdb
+
+# Игнорировать статику для djano админ-панели
+static/admin/*
+static/rest_framework/*
