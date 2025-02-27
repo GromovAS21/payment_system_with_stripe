@@ -12,8 +12,13 @@
                     <ul class="list-unstyled mt-3 mb-4">
                         <h5 class="card-title pricing-card-title">Товары:</h5>
                         {% for item in order.items.all %}
-                        <li>{{ item.name }}<li>
-                        {% endfor %}
+                        <li>{{ item.name }}
+                        <li>
+                            {% endfor %}
+                    </ul>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <h5 class="card-title pricing-card-title">Скидочный купон:</h5>
+                        {{ order.discount }}
                     </ul>
                     <button id="buy-button" class="btn btn-success">Купить</button>
                     <script type="text/javascript">
