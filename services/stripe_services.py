@@ -7,18 +7,25 @@ import stripe
 class StripeServices:
     """Сервис для работы с Stripe"""
 
-    def __init__(self, name: str, price: float, discount: Union[int, None] = None, tax: Union[int, None] = None):
+    def __init__(
+        self,
+        name: str,
+        price: float,
+        currency: str,
+        discount: Union[int, None] = None,
+        tax: Union[int, None] = None,
+    ):
         self.name = name
         self.price = price
+        self.currency = currency
         self.discount = discount
         self.tax = tax
         self.__stripe_api_key = stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
     def stripe_create_price(self) -> str:
         """Создание Stripe цены для продукта"""
-
         price = stripe.Price.create(
-            currency="rub",
+            currency=self.currency,
             unit_amount_decimal=self.price * 100,
             product_data={"name": self.name},
         )

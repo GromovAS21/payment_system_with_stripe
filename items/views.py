@@ -16,9 +16,12 @@ class StripeGetSessionItemIdAPIView(GenericAPIView):
 
     def get(self, request, pk):
         item = self.get_object()
-        item_name = item.name
-        item_price = item.price
-        stripe_item = StripeServices(item_name, item_price)
+        item_data = {
+            "name": item.name,
+            "price": item.price,
+            "currency": item.currency,
+        }
+        stripe_item = StripeServices(**item_data)
         stripe_price_id = stripe_item.stripe_create_price()
         stripe_session_id = stripe_item.stripe_create_session(stripe_price_id)
         return Response({"session_id": stripe_session_id})
