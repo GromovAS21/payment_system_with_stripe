@@ -7,7 +7,7 @@ class Discount(models.Model):
     """Модель для скидок"""
 
     name = models.CharField(max_length=100, verbose_name="Название скидки")
-    discount_percent = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Процент скидки")
+    percent = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Процент скидки")
 
     def __str__(self):
         return self.name
@@ -15,6 +15,21 @@ class Discount(models.Model):
     class Meta:
         verbose_name = "Скидка"
         verbose_name_plural = "Скидки"
+        ordering = ("-id",)
+
+
+class Tax(models.Model):
+    """Модель для налогов"""
+
+    name = models.CharField(max_length=100, verbose_name="Название налога")
+    percent = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Процент налога")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Налог"
+        verbose_name_plural = "Налоги"
         ordering = ("-id",)
 
 
@@ -33,6 +48,7 @@ class Order(models.Model):
         null=True,
         verbose_name="Скидка",
     )
+    tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Налог")
 
     def __str__(self):
         return f"Заказ Nо {self.pk}"

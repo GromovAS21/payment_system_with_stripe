@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from orders.models import Discount, Order
+from orders.models import Discount, Order, Tax
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     """Админка для модели Order"""
 
-    list_display = ("id", "total_price", "created_at", "discount")
+    list_display = ("id", "total_price", "created_at", "discount", "tax")
     search_fields = ("id",)
 
 
@@ -15,6 +15,15 @@ class OrderAdmin(admin.ModelAdmin):
 class DiscountAdmin(admin.ModelAdmin):
     """Админка для модели Discount"""
 
-    list_display = ("id", "name", "discount_percent")
+    list_display = ("id", "name", "percent")
     search_fields = ("name",)
-    list_filter = ("discount_percent",)
+    list_filter = ("percent",)
+
+
+@admin.register(Tax)
+class TaxAdmin(admin.ModelAdmin):
+    """Админка для модели Tax"""
+
+    list_display = ("id", "name", "percent")
+    search_fields = ("name",)
+    list_filter = ("percent",)

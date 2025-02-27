@@ -18,8 +18,9 @@ class StripeGetSessionOrderIdAPIView(GenericAPIView):
         order = self.get_object()
         order_number = order
         order_price = order.total_price
-        order_discount = order.discount.discount_percent if order.discount else None
-        stripe_item = StripeServices(order_number, order_price, order_discount)
+        order_discount = order.discount.percent if order.discount else None
+        order_tax = order.tax.percent if order.tax else None
+        stripe_item = StripeServices(order_number, order_price, order_discount, order_tax)
         stripe_price_id = stripe_item.stripe_create_price()
         stripe_session_id = stripe_item.stripe_create_session(stripe_price_id)
         return Response({"session_id": stripe_session_id})
