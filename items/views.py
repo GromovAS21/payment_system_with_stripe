@@ -10,7 +10,7 @@ from items.stripe_services import StripeServices
 
 
 class StripeGetSessionItemIdAPIView(GenericAPIView):
-    """Получение id сессии Stripe"""
+    """Получение id сессии Stripe для предмета"""
 
     queryset = Item.objects.all()
 
@@ -32,10 +32,10 @@ def success_pay(request) -> HttpResponse:
     return render(request, "items/success_pay.html")
 
 
-def index(request, pk: int) -> HttpResponse:
+def index_item(request, pk: int) -> HttpResponse:
     """
-    Страница для оплаты
+    Страница для оплаты предмета
     """
     item = Item.objects.get(pk=pk)
     context = {"item": item, "publishable_stripe_key": os.getenv("STRIPE_PUBLISHABLE_KEY")}
-    return render(request, "items/index.html", context)
+    return render(request, "items/index_item.html", context)

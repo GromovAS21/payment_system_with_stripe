@@ -10,6 +10,7 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ item.price }} руб.</h1>
                     <ul class="list-unstyled mt-3 mb-4">
+                        <h5 class="card-title pricing-card-title">Описание:</h5>
                         <li>{{ item.description }}
                         <li>
                     </ul>
@@ -18,7 +19,7 @@
                         var stripe = Stripe("{{ publishable_stripe_key }}");
                         var buyButton = document.getElementById('buy-button');
                         buyButton.addEventListener('click', function () {
-                            fetch('/buy/{{ item.pk }}/', {
+                            fetch('/buy/item/{{ item.pk }}/', {
                                 method: 'GET',
                             })
                                 .then(function (response) {
