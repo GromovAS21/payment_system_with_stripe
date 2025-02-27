@@ -1,15 +1,6 @@
 from django.db import models
-from rest_framework.exceptions import ValidationError
 
 from items.models import Item
-
-
-class TotalPriceValidator:
-    """Валидатор для суммы заказа"""
-
-    def __call__(self, value):
-        if not value.exists():
-            raise ValidationError("Заказ должен содержать хотя бы один предмет")
 
 
 class Order(models.Model):
