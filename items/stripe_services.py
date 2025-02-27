@@ -6,10 +6,11 @@ import stripe
 class StripeServices:
     """Сервис для работы с Stripe"""
 
-    def __init__(self, name: str, price: float):
+    def __init__(self, name: str, price: float, discount: int = None):
         self.name = name
         self.price = price
-        self.stripe_api_key = stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+        self.discount = discount
+        self.__stripe_api_key = stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
     def stripe_create_price(self) -> str:
         """Создание Stripe цены для продукта"""
@@ -31,3 +32,11 @@ class StripeServices:
             mode="payment",
         )
         return session.get("id")
+
+    def stripe_create_coupon(self):
+        """Создание купона для скидки"""
+        coupon = stripe.Coupon.create(
+            duration="once",
+            percent_off=self.discount,
+        )
+        return coupon.get("id")
