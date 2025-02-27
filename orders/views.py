@@ -5,8 +5,8 @@ from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from items.stripe_services import StripeServices
 from orders.models import Order
+from services.stripe_services import StripeServices
 
 
 class StripeGetSessionOrderIdAPIView(GenericAPIView):

@@ -6,7 +6,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
 from items.models import Item
-from items.stripe_services import StripeServices
+from services.stripe_services import StripeServices
 
 
 class StripeGetSessionItemIdAPIView(GenericAPIView):
