@@ -9,7 +9,7 @@ from items.models import Item
 from items.stripe_services import StripeServices
 
 
-class StripeGetSessionIdAPIView(GenericAPIView):
+class StripeGetSessionItemIdAPIView(GenericAPIView):
     """Получение id сессии Stripe"""
 
     queryset = Item.objects.all()
