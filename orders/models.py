@@ -36,7 +36,7 @@ class Tax(models.Model):
 class Order(models.Model):
     """Модель для заказов"""
 
-    items = models.ManyToManyField(Item, blank=True, verbose_name="Предметы заказа")
+    items = models.ManyToManyField(Item, verbose_name="Предметы заказа")
     total_price = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name="Сумма заказа", blank=True, null=True, editable=False
     )
