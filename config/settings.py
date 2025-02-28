@@ -12,7 +12,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG", False) == "True"
 
-ALLOWED_HOSTS = ["176.109.106.218"]
+ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -96,8 +96,8 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://176.109.106.218/",
-]
+CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS")]
 
-CSRF_TRUSTED_ORIGINS = ["http://176.109.106.218/"]
+CSRF_TRUSTED_ORIGINS = [
+    os.getenv("CORS_ALLOWED_ORIGINS"),
+]
