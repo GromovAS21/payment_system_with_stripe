@@ -1,11 +1,14 @@
 from django.contrib import admin
 
+from orders.forms import OrderForm
 from orders.models import Discount, Order, Tax
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     """Админка для модели Order"""
+
+    form = OrderForm
 
     list_display = (
         "id",
