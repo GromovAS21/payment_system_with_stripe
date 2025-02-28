@@ -1,0 +1,42 @@
+[
+  {
+    "model": "items.item",
+    "pk": 1,
+    "fields": {
+      "name": "Носки",
+      "description": "Со слоником",
+      "price": "5.00",
+      "currency": "EUR"
+    }
+  },
+  {
+    "model": "items.item",
+    "pk": 2,
+    "fields": {
+      "name": "Кепка",
+      "description": "Стильная",
+      "price": "40.00",
+      "currency": "USD"
+    }
+  },
+  {
+    "model": "items.item",
+    "pk": 3,
+    "fields": {
+      "name": "Штаны",
+      "description": "Осенняя коллекция.",
+      "price": "9000.00",
+      "currency": "RUB"
+    }
+  },
+  {
+    "model": "items.item",
+    "pk": 4,
+    "fields": {
+      "name": "Куртка",
+      "description": "Теплая куртка из шерсти",
+      "price": "23000.00",
+      "currency": "RUB"
+    }
+  }
+]
