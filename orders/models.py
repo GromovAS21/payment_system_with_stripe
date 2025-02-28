@@ -49,6 +49,7 @@ class Order(models.Model):
         verbose_name="Скидка",
     )
     tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Налог")
+    currency = models.CharField(max_length=3, verbose_name="Валюта", blank=True, null=True, editable=False)
 
     def __str__(self):
         return f"Заказ Nо {self.pk}"

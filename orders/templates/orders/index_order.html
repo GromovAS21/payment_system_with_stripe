@@ -8,7 +8,7 @@
                     <h4 class="my-0 fw-normal">{{ order }}</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ order.total_price }} </h1>
+                    <h1 class="card-title pricing-card-title">{{ order.total_price }} {{ order.currency }}</h1>
                     <ul class="list-unstyled mt-3 mb-4">
                         <h5 class="card-title pricing-card-title">Товары:</h5>
                         {% for item in order.items.all %}

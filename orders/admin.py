@@ -7,7 +7,14 @@ from orders.models import Discount, Order, Tax
 class OrderAdmin(admin.ModelAdmin):
     """Админка для модели Order"""
 
-    list_display = ("id", "total_price", "created_at", "discount", "tax")
+    list_display = (
+        "id",
+        "total_price",
+        "currency",
+        "discount",
+        "tax",
+        "created_at",
+    )
     search_fields = ("id",)
 
 
