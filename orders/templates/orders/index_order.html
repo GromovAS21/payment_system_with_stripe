@@ -8,13 +8,26 @@
                     <h4 class="my-0 fw-normal">{{ order }}</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">{{ order.total_price }} руб.</h1>
+                    <h1 class="card-title pricing-card-title">{{ order.total_price }} {{ order.currency }}</h1>
                     <ul class="list-unstyled mt-3 mb-4">
                         <h5 class="card-title pricing-card-title">Товары:</h5>
                         {% for item in order.items.all %}
-                        <li>{{ item.name }}<li>
-                        {% endfor %}
+                        <li>{{ item.name }}
+                        <li>
+                            {% endfor %}
                     </ul>
+                    {% if order.discount %}
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <h5 class="card-title pricing-card-title">Скидочный купон:</h5>
+                        {{ order.discount }}
+                    </ul>
+                    {% endif %}
+                    {% if order.tax %}
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <h5 class="card-title pricing-card-title">Налог:</h5>
+                        {{ order.tax }}
+                    </ul>
+                    {% endif %}
                     <button id="buy-button" class="btn btn-success">Купить</button>
                     <script type="text/javascript">
                         var stripe = Stripe("{{ publishable_stripe_key }}");
