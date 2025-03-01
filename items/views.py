@@ -2,6 +2,7 @@ import os
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
@@ -24,14 +25,13 @@ class StripeGetSessionItemIdAPIView(GenericAPIView):
         stripe_item = StripeServices(**item_data)
         stripe_price_id = stripe_item.stripe_create_price()
         stripe_session_id = stripe_item.stripe_create_session(stripe_price_id)
-        return Response({"session_id": stripe_session_id})
+        return Response({"session_id": stripe_session_id}, status=status.HTTP_200_OK)
 
 
 def success_pay(request) -> HttpResponse:
     """
     Страница с успешной оплатой
     """
-
     return render(request, "items/success_pay.html")
 
 

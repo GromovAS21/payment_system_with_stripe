@@ -12,9 +12,10 @@
                     <ul class="list-unstyled mt-3 mb-4">
                         <h5 class="card-title pricing-card-title">Товары:</h5>
                         {% for item in order.items.all %}
-                        <li>{{ item.name }}
                         <li>
-                            {% endfor %}
+                            {{ item.name }}
+                        </li>
+                        {% endfor %}
                     </ul>
                     {% if order.discount %}
                     <ul class="list-unstyled mt-3 mb-4">
