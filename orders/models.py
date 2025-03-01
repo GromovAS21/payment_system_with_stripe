@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from items.models import Item
@@ -7,7 +8,12 @@ class Discount(models.Model):
     """Модель для скидок"""
 
     name = models.CharField(max_length=100, verbose_name="Название скидки")
-    percent = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Процент скидки")
+    percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="Процент скидки",
+        validators=[MinValueValidator(1), MaxValueValidator(100)],
+    )
 
     def __str__(self):
         return self.name
@@ -22,7 +28,12 @@ class Tax(models.Model):
     """Модель для налогов"""
 
     name = models.CharField(max_length=100, verbose_name="Название налога")
-    percent = models.DecimalField(max_digits=5, decimal_places=2, verbose_name="Процент налога")
+    percent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name="Процент налога",
+        validators=[MinValueValidator(1), MaxValueValidator(100)],
+    )
 
     def __str__(self):
         return self.name
