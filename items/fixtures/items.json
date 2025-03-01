@@ -24,7 +24,7 @@
     "pk": 3,
     "fields": {
       "name": "Штаны",
-      "description": "Осенняя коллекция.",
+      "description": "Осенняя коллекция",
       "price": "9000.00",
       "currency": "RUB"
     }
