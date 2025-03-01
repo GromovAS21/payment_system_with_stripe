@@ -25,8 +25,7 @@ class StripeGetSessionOrderIdAPIView(GenericAPIView):
             "currency": order.currency,
         }
         stripe_item = StripeServices(**order_data)
-        stripe_price_id = stripe_item.stripe_create_price()
-        stripe_session_id = stripe_item.stripe_create_session(stripe_price_id)
+        stripe_session_id = stripe_item.stripe_create_session()
         return Response({"session_id": stripe_session_id}, status=status.HTTP_200_OK)
 
 

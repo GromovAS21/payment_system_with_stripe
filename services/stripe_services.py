@@ -1,5 +1,5 @@
 import os
-from typing import Union
+from typing import Optional, Union
 
 import stripe
 
@@ -22,7 +22,7 @@ class StripeServices:
         self.tax = tax
         self.__stripe_api_key = stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
-    def stripe_create_price(self) -> str:
+    def stripe_create_price(self) -> Optional[str]:
         """Создание Stripe цены для продукта"""
         price = stripe.Price.create(
             currency=self.currency,
@@ -31,7 +31,7 @@ class StripeServices:
         )
         return price.get("id")
 
-    def stripe_create_coupon(self) -> str:
+    def stripe_create_coupon(self) -> Optional[str]:
         """Создание купона для скидки"""
         if self.discount is not None:
             coupon = stripe.Coupon.create(
@@ -40,7 +40,7 @@ class StripeServices:
             )
             return coupon.get("id")
 
-    def stripe_create_tax(self) -> str:
+    def stripe_create_tax(self) -> Optional[str]:
         """Создание налога"""
         if self.tax is not None:
             tax = stripe.TaxRate.create(
@@ -50,21 +50,24 @@ class StripeServices:
             )
             return tax.get("id")
 
-    def stripe_create_session(self, price_id: str) -> str:
+    def stripe_create_session(self) -> Optional[str]:
         """Создание Stripe сессии"""
-        date = {
+        price = self.stripe_create_price()
+        coupon = self.stripe_create_coupon()
+        stripe_session_data = {
             "success_url": f"http://{os.getenv("HOST")}/success_pay/",
-            "line_items": [{"price": price_id, "quantity": 1}],
+            "line_items": [{"price": price, "quantity": 1}],
             "mode": "payment",
-            "discounts": [{"coupon": self.stripe_create_coupon()}],
+            "discounts": [{"coupon": coupon}],
             "tax_id_collection": {"enabled": True},
         }
 
         if self.tax is not None:
-            date["line_items"][0]["tax_rates"] = [self.stripe_create_tax()]
+            tax = self.stripe_create_tax()
+            stripe_session_data["line_items"][0]["tax_rates"] = [tax]
 
         try:
-            session = stripe.checkout.Session.create(**date)
+            session = stripe.checkout.Session.create(**stripe_session_data)
             return session.get("id")
-        except stripe._error.InvalidRequestError as e:
-            print(e)
+        except stripe._error.InvalidRequestError as error:
+            print(error)
