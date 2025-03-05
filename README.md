@@ -110,9 +110,10 @@ _Платежный сервис представляет собой веб-пр
      python manage.py migrate
      ```
 
-### 5. Создание суперпользователя
+### 5. Создание суперпользователя и добавление заявок и предметов в базу данных
    ```bash
-   python manage.py csu
+   python manage.py csu 
+   python manage.py loaddata items.json orders.json
    ```
 ### 6. Запуск приложения
    - Запуск локально (для разработки)
