@@ -1,9 +1,12 @@
 from django import forms
 
 from orders.models import Order
+from orders.validators import validate_items
 
 
 class OrderForm(forms.ModelForm):
+    """Форма для модели Order"""
+
     class Meta:
         model = Order
         fields = "__all__"
@@ -11,9 +14,6 @@ class OrderForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         items = cleaned_data.get("items")
-        items_currency = set(item.currency for item in list(items))
-        if len(items_currency) > 1:
-            raise forms.ValidationError("Все предметы должны быть в одной валюте.")
-        self.instance.currency = items_currency.pop()
-
+        currency = validate_items(items)
+        self.instance.currency = currency
         return cleaned_data
